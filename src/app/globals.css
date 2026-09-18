@@ -1,0 +1,229 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-body), system-ui, sans-serif;
+  --font-hand: var(--font-hand-face), "Comic Sans MS", cursive;
+
+  --color-paper: #fdfdff;
+  --color-paper-2: #f4f3fb;
+  --color-grid: #d9d4f1;
+  --color-margin: #e36a80;
+  --color-ink: #3d2aa8;
+  --color-ink-deep: #211766;
+  --color-ink-soft: #ebe7fb;
+  --color-redpen: #cf1f3a;
+  --color-redpen-soft: #fde9ec;
+  --color-text: #1d1a2e;
+  --color-muted: #595476;
+  --color-cover: #3a27a3;
+  --color-cover-deep: #25196f;
+  --color-cover-lime: #c8e04a;
+  --color-cover-pink: #f06ea9;
+  --color-cover-teal: #1f9c8d;
+  --color-tape: #f6e27a;
+}
+
+:root {
+  color-scheme: light;
+  --rule: 6px;
+  --square: 24px;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-cover);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01";
+  text-rendering: optimizeLegibility;
+}
+
+/* Giấy ô ly: dòng kẻ mảnh mỗi 6px, ô vuông đậm mỗi 24px, lề đỏ bên trái */
+.paper {
+  background-color: var(--color-paper);
+  background-image:
+    linear-gradient(to right, transparent 46px, var(--color-margin) 46px, var(--color-margin) 47.5px, transparent 47.5px, transparent 50px, var(--color-margin) 50px, var(--color-margin) 51px, transparent 51px),
+    linear-gradient(to bottom, rgba(125, 110, 205, 0.28) 1px, transparent 1px),
+    linear-gradient(to right, rgba(125, 110, 205, 0.28) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(125, 110, 205, 0.1) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    var(--square) var(--square),
+    var(--square) var(--square),
+    var(--rule) var(--rule);
+  background-position: 0 0, 0 -1px, -1px 0, 0 -1px;
+}
+
+.paper-plain {
+  background-color: var(--color-paper);
+  background-image:
+    linear-gradient(to bottom, rgba(125, 110, 205, 0.22) 1px, transparent 1px),
+    linear-gradient(to right, rgba(125, 110, 205, 0.22) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(125, 110, 205, 0.08) 1px, transparent 1px);
+  background-size: var(--square) var(--square), var(--square) var(--square), var(--rule) var(--rule);
+}
+
+@media (max-width: 640px) {
+  .paper {
+    background-image:
+      linear-gradient(to right, transparent 14px, var(--color-margin) 14px, var(--color-margin) 15px, transparent 15px),
+      linear-gradient(to bottom, rgba(125, 110, 205, 0.28) 1px, transparent 1px),
+      linear-gradient(to right, rgba(125, 110, 205, 0.28) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(125, 110, 205, 0.1) 1px, transparent 1px);
+  }
+}
+
+/* Bìa vở: vân giấy bìa mờ trên màu tím */
+.cover {
+  background-color: var(--color-cover);
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.08), transparent 40%),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.025) 0 2px, transparent 2px 7px);
+}
+
+.sheet-shadow {
+  box-shadow:
+    0 1px 1px rgba(20, 12, 70, 0.25),
+    0 18px 40px -18px rgba(12, 6, 50, 0.65);
+}
+
+/* Nhãn vở: viền gợn sóng */
+.nhan-vo {
+  position: relative;
+  background: #fff;
+  border-radius: 18px;
+  outline: 2px solid currentColor;
+  outline-offset: -8px;
+}
+
+/* Mẫu vải cắt răng cưa */
+.pinked {
+  clip-path: polygon(
+    0% 8%, 8% 0%, 16% 8%, 25% 0%, 33% 8%, 42% 0%, 50% 8%, 58% 0%, 67% 8%, 75% 0%, 84% 8%, 92% 0%, 100% 8%,
+    100% 92%, 92% 100%, 84% 92%, 75% 100%, 67% 92%, 58% 100%, 50% 92%, 42% 100%, 33% 92%, 25% 100%, 16% 92%, 8% 100%, 0% 92%
+  );
+}
+
+.tape {
+  background: color-mix(in oklab, var(--color-tape) 80%, transparent);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.hand {
+  font-family: var(--font-hand);
+  letter-spacing: 0.01em;
+}
+
+/* Nét mực vẽ dần */
+.ink-draw path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: ink 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes ink {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.tick path {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  animation: tick 260ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes tick {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.fade-up {
+  animation: fadeUp 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0.001;
+    transform: translateY(6px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-draw path,
+  .tick path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .fade-up {
+    animation: none;
+  }
+}
+
+:focus-visible {
+  outline: 2.5px solid var(--color-ink);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Vùng chạm trên nhân vật */
+.zone-hit {
+  fill: transparent;
+  cursor: pointer;
+  transition: fill 150ms ease-out;
+}
+.zone-hit:hover {
+  fill: rgba(61, 42, 168, 0.07);
+}
+.zone-hit:focus-visible {
+  outline: none;
+  fill: rgba(61, 42, 168, 0.1);
+  stroke: var(--color-ink);
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+}
+
+/* Văn bản pháp lý */
+.legal ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.legal li + li {
+  margin-top: 0.35rem;
+}
+.legal li::marker {
+  color: var(--color-ink);
+}
+.legal a {
+  color: var(--color-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.legal code {
+  border-radius: 6px;
+  background: #fff;
+  padding: 0 0.3rem;
+  font-size: 0.9em;
+}
+
+body > footer {
+  margin-top: auto;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-grid) transparent;
+}

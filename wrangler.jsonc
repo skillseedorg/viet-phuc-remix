@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "viet-phuc-remix",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  // NEXT_PUBLIC_* được nhúng lúc build, lấy từ .env.production
+  "vars": {
+    "GEMINI_MODEL": "gemini-3.8-flash",
+    "DEEPSEEK_BASE_URL": "https://api.deepseek.com",
+    "DEEPSEEK_MODEL": "deepseek-flash"
+  }
+  // Secrets: npx wrangler secret put GEMINI_API_KEY
+  // Dự phòng (không bắt buộc): npx wrangler secret put DEEPSEEK_API_KEY
+}
